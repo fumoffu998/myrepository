@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link href="css/style.css" rel="stylesheet">
+    <meta charset="UTF-8" />
+    <title> Hello,World! </title>
+    <script src="js/react.js"></script>
+    <script src="js/react-dom.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+</head>
+<body>
+    
+    <div id="program"></div>
+
+    <script type="text/babel">
+      var Dash = React.createClass ({
+        getInitialState: function () {
+          return {edit: false}
+        },
+        edit: function () {
+          this.setState ({edit: true})
+        },
+        remove: function () {
+          alert ("Нажата кнопка");
+        },
+        save: function () {
+          this.setState ({edit: false})
+        },
+        rendNorm: function () {
+          return (
+            <div className="box">
+              <div className="text">{this.props.children}</div>
+              <button onClick={this.edit} className="btn light">Изменить</button>
+              <button onClick={this.remove} className="btn red">Удалить</button>
+            </div>
+          );
+        },
+        rendEdit: function () {
+          return (
+            <div className="box">
+              <textarea defaultValue={this.props.children}></textarea>
+              <button onClick={this.save} className="btn success">Сохранить</button>
+            </div>
+          );
+        },
+        render: function () {
+          if (this.state.edit) {
+            return this.rendEdit ();
+          } else {
+            return this.rendNorm ();
+          }
+        }
+      });
+
+      const app = document.getElementById("program");
+
+      ReactDOM.render (
+        <div className="field">
+          <Dash>First</Dash>
+          <Dash>Second</Dash>
+          <Dash>Third</Dash>
+        </div>, app);
+    </script>
+</body>
+</html>
